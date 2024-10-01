@@ -489,13 +489,13 @@ void pomme_geodetic (int control[MAXCONTROL],
    }
    rrel = r/6371.2;
    pomme_external_geocentric (control, fday, rrel, theta, phi, est, ist, imf_by, f107, Em, &ex, &ey, &ez);
-   x = mx + cx + ex;
-   y = my + cy + ey;
-   z = mz + cz + ez;
+   *geod_x = mx + cx + ex;
+   *geod_y = my + cy + ey;
+   *geod_z = mz + cz + ez;
    *f = sqrt(x*x + y*y + z*z);
  
-   delta = (90.0-geod_lat) * M_PI / 180.0; /* delta is the geodetic co-latitude */
-   geocentric2geodetic_vec(theta, delta, x, y, z, geod_x, geod_y, geod_z);
+   //delta = (90.0-geod_lat) * M_PI / 180.0; /* delta is the geodetic co-latitude */
+   //geocentric2geodetic_vec(theta, delta, x, y, z, geod_x, geod_y, geod_z);
  
    *h     = sqrt(*geod_x * *geod_x + *geod_y * *geod_y);
    *incl  = 0.0;
