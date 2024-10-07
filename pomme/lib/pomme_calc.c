@@ -416,7 +416,7 @@ void print_result_csv(
         const struct geomag_input* in)
 {
     int i, j, k;
-    fprintf(ostream,"Date,Alt(km),Lat(Deg),Lon(Deg),D(deg),I(deg),H(nT),X(nT),Y(nT),Z(nT),F(nT)\n");
+    fprintf(ostream,"Date,Alt(km),Lat(Deg),Lon(Deg),D(deg),I(deg),H(nT),Bt(nT),Bp(nT),Br(nT),F(nT)\n");
     for (k = 0; k < results->ndates; k++) {
         for (i = results->nlats - 1; i >= 0; i--) {
             for (j = 0; j < results->nlons; j++) {

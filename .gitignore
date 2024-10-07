@@ -1,0 +1,7 @@
+.DS_Store
+build/
+dist/
+env/
+
+pomme.cpython-311-darwin.so
+pomme.egg-info/
