@@ -27,6 +27,7 @@
 #include "gsm2geo.h" 
 
 
+#define M_PI 3.14159265358979323846
 #define WD              (2.0 * M_PI)             /* diurnal frequency */
 #define WA              (2.0 * M_PI / 365.25)    /* annual frequency */
 

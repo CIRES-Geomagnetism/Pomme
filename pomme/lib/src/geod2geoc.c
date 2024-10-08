@@ -1,6 +1,7 @@
 #include <math.h>
 #include "geod2geoc.h"
 
+#define M_PI 3.14159265358979323846
 #define WGS84_A 6378.1370       /* in km */
 #define WGS84_B 6356.752314     /* in km */
 #define WGS84_E sqrt(WGS84_A*WGS84_A - WGS84_B*WGS84_B)
