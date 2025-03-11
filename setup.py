@@ -15,7 +15,7 @@ module = Extension("pomme",
     "src/lib/pom.c",
     "src/lib/sm2geo.c",
     "src/lib/utils.c"],
-    include_dirs=["src"],
+    include_dirs=["src/lib"],
     extra_compile_args=["-O2"])
 
 setup(
