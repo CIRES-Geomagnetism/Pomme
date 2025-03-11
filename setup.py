@@ -6,16 +6,17 @@ class build_ext(_build_ext):
         super().build_extensions()
 
 module = Extension("pomme", 
-    sources=["pomme/lib/pomme_wrapper.c","pomme/lib/model.c",
-    "pomme/lib/src/geod2geoc.c",
-    "pomme/lib/src/gsm2geo.c",
-    "pomme/lib/src/int-ext.c",
-    "pomme/lib/src/magfdz.c",
-    "pomme/lib/src/plmbar.c",
-    "pomme/lib/src/pom.c",
-    "pomme/lib/src/sm2geo.c",
-    "pomme/lib/src/utils.c"],
-    include_dirs=["pomme/lib/src"])
+    sources=["src/pomme_wrapper.c","src/model.c",
+    "src/lib/geod2geoc.c",
+    "src/lib/gsm2geo.c",
+    "src/lib/int-ext.c",
+    "src/lib/magfdz.c",
+    "src/lib/plmbar.c",
+    "src/lib/pom.c",
+    "src/lib/sm2geo.c",
+    "src/lib/utils.c"],
+    include_dirs=["src"],
+    extra_compile_args=["-O2"])
 
 setup(
     #name='pomme',

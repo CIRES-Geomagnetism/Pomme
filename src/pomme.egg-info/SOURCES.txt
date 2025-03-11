@@ -1,0 +1,17 @@
+pyproject.toml
+setup.py
+pomme/lib/model.c
+pomme/lib/pomme_wrapper.c
+pomme/lib/src/geod2geoc.c
+pomme/lib/src/gsm2geo.c
+pomme/lib/src/int-ext.c
+pomme/lib/src/magfdz.c
+pomme/lib/src/plmbar.c
+pomme/lib/src/pom.c
+pomme/lib/src/sm2geo.c
+pomme/lib/src/utils.c
+src/pomme.egg-info/PKG-INFO
+src/pomme.egg-info/SOURCES.txt
+src/pomme.egg-info/dependency_links.txt
+src/pomme.egg-info/requires.txt
+src/pomme.egg-info/top_level.txt

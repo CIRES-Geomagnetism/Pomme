@@ -1,0 +1,13 @@
+ .DS_Store
+.github/
+.idea/
+build/
+dist/
+env/
+
+pomme/lib/.DS_Store
+pomme/lib/build/
+pomme/lib/src/.DS_Store
+pomme/pomme.zip
+
+tests/.DS_Store
