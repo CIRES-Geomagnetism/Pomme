@@ -25,7 +25,7 @@ import pomme
 map = pomme.compute(2024.5,20,30,0,50.5,25.5,40,69.99,0.45)
 print(map)
 ```
-It will return the Python dict object as outputs.
+It will return the Python dictionary.
 ```python
 {'Bx': 51.070342325328376, 'By': -19.434705977679094, 'Bz': 5.4209154034177285, 'Bh': 49.5246766288401, 'Bf': 46.928721256037534, 'Bdec': -0.037527083681935025, 'Binc': -0.0244606748919729}
 ```
