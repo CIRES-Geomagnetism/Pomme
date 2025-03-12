@@ -88,7 +88,7 @@ void print_json_results(pomme_results* res){
 }
 
 
-void pommecalc(double date, double lat, double lon, double elv, double est,double ist,double imf_by,double f107,double em){	
+pomme_results pommecalc(double date, double lat, double lon, double elv, double est,double ist,double imf_by,double f107,double em){
 	
 	int* control = calloc(MAXCONTROL, sizeof(int));
 	pomme_results results;
@@ -119,9 +119,11 @@ void pommecalc(double date, double lat, double lon, double elv, double est,doubl
 
 	compute_mag_elements(&results, x, y, z, decl_t, decl_m, incl_t, incl_m, h_t, h_m, f_t, f_m);
 	
-	print_json_results(&results);
+	//print_json_results(&results);
 	free(control);
-	//printf("x: %f, y: %f, z: %f, h: %f, f: %f, decl: %f, incl: %f \n", *x, *y, *z, *h, *f, *decl, *incl);  
+	//printf("x: %f, y: %f, z: %f, h: %f, f: %f, decl: %f, incl: %f \n", *x, *y, *z, *h, *f, *decl, *incl);
+
+	return results;
 }
 
 

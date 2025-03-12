@@ -1,0 +1,17 @@
+.DS_Store
+.idea/
+build/
+dist/
+env/
+pomme.egg-info/
+
+pomme/src/.DS_Store
+pomme/src/build/
+pomme/pomme.zip
+pomme/*.so
+pomme/pomme.egg-info/
+
+tests/.DS_Store
+tests/__pycache__/
+
+
