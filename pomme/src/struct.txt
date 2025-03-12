@@ -1,0 +1,29 @@
+pomme_geodetic:
+    - geodetic2geocentric (call from geod2geoc.c)
+    - pomme_internal_geocentric (pom.c)
+    - pomme_external_geocentric (pom.c)
+    - geocentric2geodetic_vec (call from geod2geoc.c)
+
+pomme_internal_geocentric
+    - plmbar_ (call from plmbar.c)
+    - magfdz_ (call from magfdz.c)
+
+pomme_external_geocentric
+    - sm2geo_green (call from sm2geo.c)
+    - gsm2geo_green (call from gsm2geo.c)
+    - sm2geo (call from sm2geo.c)
+    - get_ext (call from int-ext.c)
+    - get_int (call from int-ext.c)
+    - gsm2geo (call from gsm2geo.c)
+    - plmbar_ 
+    - magfdz_
+    - magfdz_ext_ (call from magfdz.c)
+
+sm2geo, sm2geo_green
+    - i2m (call from pom.c)
+    - indx (call from pom.c)
+
+gsm2geo, gsm2geo_green
+    - i2m
+    - indx
+
