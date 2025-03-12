@@ -17,6 +17,7 @@ python setup.py install
 ```
 
 ## Using the C Extension in Python
+After building the extension, you can import and use the function.
 
 ```python
 import pomme
