@@ -3,10 +3,15 @@
 build/
 dist/
 env/
+pomme.egg-info/
 
-pomme/lib/.DS_Store
-pomme/lib/build/
-pomme/lib/src/.DS_Store
+pomme/src/.DS_Store
+pomme/src/build/
 pomme/pomme.zip
+pomme/*.so
+pomme/pomme.egg-info/
 
 tests/.DS_Store
+tests/__pycache__/
+
+
