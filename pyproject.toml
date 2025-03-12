@@ -1,16 +1,16 @@
 [project]
 name = "pomme"
-version = "0.1.0"
+version = "0.1.1"
 description = "A test version of Pomme"
-authors = [{ name = "Li-Yin Young", email = "you@example.com" }]
-dependencies = [
-    "requests",  # Example of a PyPI package
-    ]
+authors = [ {name = "Liam Kilcommons", email = "liam.kilcommons@noaa.gov"},
+    { name = "Li-Yin Young", email = "liyin.young@noaa.gov" }]
 
 [build-system]
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools]
-package-dir = {"" = "src"}
+[project.urls]
+Homepage = "https://github.com/CIRES-Geomagnetism/Pomme.git"
 
+[tool.setuptools]
+packages = ["pomme"]
