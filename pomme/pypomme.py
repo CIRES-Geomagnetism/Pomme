@@ -1,7 +1,7 @@
 from pomme import cpomme
 from typing import Union,List
 
-def _determine_expected_input_list_length(*input_args):
+def _determine_expected_input_list_length(*input_args) -> int:
     """Check that all list-type members of an arbitrary set of inputs
     have the same length as each other, then return that length"""
     input_lens = [len(arg) for arg in input_args if isinstance(arg,list)]
@@ -10,7 +10,7 @@ def _determine_expected_input_list_length(*input_args):
     else:
         return input_lens[0]
 
-def _broadcast_if_scalar(arg : float, expected_len : int):
+def _broadcast_if_scalar(arg : float, expected_len : int) -> list:
     """Check if arg is a scalar type, if it is, duplicate it into a list
     of length expected_len"""
     if isinstance(arg,list):    
@@ -24,7 +24,7 @@ def _in_range(values : list,
                 min_value : float, 
                 max_value : float, 
                 min_exclusive = False, 
-                max_exclusive = False):
+                max_exclusive = False) -> bool:
     """Determine if all values in a list are in the inverval [min_value,max_value], if an
     open inverval is desired, set min_exclusive to True for (min_value,max_value], 
     or max_exclusive to True for [min_value,max_value)"""
