@@ -10,21 +10,23 @@ def _determine_expected_input_list_length(*input_args) -> int:
     else:
         return input_lens[0]
 
-def _broadcast_if_scalar(arg : float, expected_len : int) -> list:
+def _broadcast_if_scalar(arg : float, expected_len : int) -> List[float]:
     """Check if arg is a scalar type, if it is, duplicate it into a list
     of length expected_len"""
-    if isinstance(arg,list):    
+    if isinstance(arg,list):
+        if not all([isinstance(item,float) for item in arg]):
+            raise TypeError(f'Expected list of floats')   
         return arg
     elif isinstance(arg, float):
         return [arg for i in range(expected_len)]
     else:
-        raise TypeError(f'Expected float or list not {type(arg)}')
+        raise TypeError(f'Expected float not {type(arg)}')
 
-def _in_range(values : list, 
+def _in_range(values : List[float], 
                 min_value : float, 
                 max_value : float, 
-                min_exclusive = False, 
-                max_exclusive = False) -> bool:
+                min_exclusive : bool = False, 
+                max_exclusive : bool = False) -> bool:
     """Determine if all values in a list are in the inverval [min_value,max_value], if an
     open inverval is desired, set min_exclusive to True for (min_value,max_value], 
     or max_exclusive to True for [min_value,max_value)"""
@@ -36,15 +38,15 @@ def _in_range(values : list,
 
     return all([in_interval(value) for value in values])
 
-def get_field(decimal_year : Union[float,list], 
-                lat : Union[float,list],
-                lon : Union[float,list],
-                alt_km : Union[float,list], 
-                est : Union[float,list],
-                ist : Union[float,list],
-                imf_by : Union[float,list],
-                f107 : Union[float,list],
-                em : Union[float,list]) -> List[dict]:
+def get_field(decimal_year : Union[float,List[float]], 
+                lat : Union[float,List[float]],
+                lon : Union[float,List[float]],
+                alt_km : Union[float,List[float]], 
+                est : Union[float,List[float]],
+                ist : Union[float,List[float]],
+                imf_by : Union[float,List[float]],
+                f107 : Union[float,List[float]],
+                em : Union[float,List[float]]) -> List[dict]:
     """Compute the Pomme model field for any number of input points. Single
     value (scalar) inputs are duplicated in a list to match length of list inputs"""
 
