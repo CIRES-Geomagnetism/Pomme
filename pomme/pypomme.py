@@ -6,6 +6,8 @@ def _determine_expected_input_list_length(*input_args) -> int:
     """Check that all list-type members of an arbitrary set of inputs
     have the same length as each other, then return that length"""
     input_lens = [len(arg) for arg in input_args if isinstance(arg, list)]
+    if len(input_lens)==0: #No lists input, just floats
+        return 1
     if not all([l == input_lens[0] for l in input_lens]):
         raise RuntimeError("All list inputs must have the same length")
     else:
@@ -62,6 +64,7 @@ def get_field(
         decimal_year, lat, lon, alt_km, est, ist, imf_by, f107, em
     )
 
+  
     decimal_year = _broadcast_if_scalar(decimal_year, num_points)
     lat = _broadcast_if_scalar(lat, num_points)
     lon = _broadcast_if_scalar(lon, num_points)
@@ -95,11 +98,11 @@ def get_field(
             em[i],
         )
 
-        result["decimal_year"] = decimal_year[i]
-        result["lat"] = lat[i]
-        result["lon"] = lon[i]
-        result["alt_km"] = alt_km[i]
+        # result["decimal_year"] = decimal_year[i]
+        # result["lat"] = lat[i]
+        # result["lon"] = lon[i]
+        # result["alt_km"] = alt_km[i]
 
         results.append(result)
-
+    
     return results
