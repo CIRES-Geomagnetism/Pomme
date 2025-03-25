@@ -1,6 +1,11 @@
 import pytest
+from pathlib import Path
 from pomme.pypomme import get_field
 import csv #from Python stdlib 
+
+#The data files will be in the same directory as this test script
+inputs_file_path = Path(__file__).parent / 'inputs_201503.txt'
+outputs_file_path = Path(__file__).parent / 'pomme_hon_201503.txt'
 
 def loop_test_points():
     """This function is a generator which you can loop through
@@ -8,10 +13,10 @@ def loop_test_points():
     (each row in input and output data files).
     Inputs and outputs are returned as dictionaries
     of floats"""
-    inputs_file = 'inputs_201503.txt'
+    inputs_file = inputs_file_path.resolve()
     infile_fields = ['date','fyear','est','ist','imf_by','em','f107']
     
-    outputs_file = 'pomme_hon_201503.txt'
+    outputs_file = outputs_file_path.resolve()
     outfile_fields = ['fyear','lat','lon','elevation',
                       'X','Y','Z','H','F','decline','incline']
     
