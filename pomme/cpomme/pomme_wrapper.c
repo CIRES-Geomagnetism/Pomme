@@ -38,7 +38,7 @@ static PyMethodDef pom_methods[] = {
     {NULL, NULL, 0, NULL}  // Sentinel
 };
 
-static struct PyModuleDef pomme = {
+static struct PyModuleDef cpomme = {
     PyModuleDef_HEAD_INIT,
     "pomme",  // Module name
     NULL,        // Module documentation
@@ -46,8 +46,8 @@ static struct PyModuleDef pomme = {
     pom_methods
 };
 
-PyMODINIT_FUNC PyInit_pomme(void) {
-    return PyModule_Create(&pomme);
+PyMODINIT_FUNC PyInit_cpomme(void) {
+    return PyModule_Create(&cpomme);
 }
 
 

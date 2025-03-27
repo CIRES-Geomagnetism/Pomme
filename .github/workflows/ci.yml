@@ -27,6 +27,10 @@ jobs:
         python setup.py build_ext --inplace
         python setup.py install
 
+    - name: Unit tests
+      run: |
+        py.test
+        
     - name: Test the import
       run: |
         python tests/test_pomme_wrapper.py
