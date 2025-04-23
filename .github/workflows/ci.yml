@@ -30,8 +30,3 @@ jobs:
     - name: Unit tests
       run: |
         py.test
-        
-    - name: Test the import
-      run: |
-        python -m pytest tests/test_pypomme.py
-        python tests/test_pypomme_scientific.py
