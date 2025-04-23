@@ -33,4 +33,5 @@ jobs:
         
     - name: Test the import
       run: |
-        python tests/test_pomme_wrapper.py
+        python -m pytest tests/test_pypomme.py
+        python tests/test_pypomme_scientific.py

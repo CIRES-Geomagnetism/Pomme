@@ -5,6 +5,7 @@ dist/
 env/
 pomme.egg-info/
 
+pomme/__pycache__/
 pomme/src/.DS_Store
 pomme/src/build/
 pomme/pomme.zip
