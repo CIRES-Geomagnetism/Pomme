@@ -25,7 +25,7 @@ jobs:
     - name: Build and install Pomme Python wrapper
       run: |
         python -m build
-        pip install -e
+        pip install -e .
 
     - name: Unit tests
       run: |
