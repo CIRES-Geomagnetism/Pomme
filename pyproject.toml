@@ -24,5 +24,3 @@ build-backend = "setuptools.build_meta"
 [project.urls]
 Homepage = "https://github.com/CIRES-Geomagnetism/Pomme.git"
 
-[tool.setuptools]
-packages = ["pomme"]
