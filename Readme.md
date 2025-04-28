@@ -6,15 +6,15 @@ The time variations of the internal field are given by a piece-wise linear repre
 The latest version of Pomme is POMME-10. Please see the [POMME-10](https://geomag.colorado.edu/index.php/pomme-10-magnetic-model-of-the-earth) for the detail.
 
 ## Build requirements
-This package requires a C compiler to build the Pomme C code (e.g. gcc), and that the Python setuptools package is installed. Running tests requires pytest.
+This package requires a C compiler to build the Pomme C code (e.g. gcc), and that the Python setuptools, wheel and build packages are installed. Running tests requires pytest.
 
-## Compile the POMME C Extension
+## Compile and install
 
 ```commandline
-python setup.py build_ext --inplace
+python -m build
 ```
 ```commandline
-python setup.py install
+pip install .
 ```
 
 ## Using the C Extension in Python
