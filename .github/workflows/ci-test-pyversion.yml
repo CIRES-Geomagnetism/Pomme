@@ -1,8 +1,8 @@
-name: Pomme ci pipeline
+name: Pomme test-pyversion ci pipeline
 
 on:
   push:
-    branches: ['*']
+    branches: ['test-pyversion']
 
 jobs:
   test:
