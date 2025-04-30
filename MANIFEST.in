@@ -1,0 +1,4 @@
+include pomme/cpomme/*.c
+include pomme/cpomme/*.h
+include pomme/cpomme/src/*.c
+include pomme/cpomme/src/*.h
