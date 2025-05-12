@@ -64,7 +64,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
           name: wheels-${{ matrix.python-version }}
-          path: dist\*.whl
+          path: dist/*.whl
   release:
     name: Create Release
     runs-on: windows-latest
@@ -73,16 +73,17 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           path: dist
-
-      #- name: Flatten wheel files
-      #  run: |
-      #      mkdir all_wheels
-      #      find dist -name '*.whl' -exec cp {} all_wheels/ \;
+      - name: Flatten wheel files
+        run: |
+          mkdir all_wheels
+          Get-ChildItem -Recurse dist\*.whl | Copy-Item -Destination all_wheels
 
       - name: Upload release assets
         uses: softprops/action-gh-release@v1
+
         with:
-            files: dist\*.whl
+            files: all_wheels\*.whl
             draft: true
+
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
