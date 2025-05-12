@@ -4,6 +4,7 @@ build/
 dist/
 env/
 pomme.egg-info/
+struct.txt
 
 pomme/__pycache__/
 pomme/src/.DS_Store
@@ -14,5 +15,9 @@ pomme/pomme.egg-info/
 
 tests/.DS_Store
 tests/__pycache__/
+tests/results
+tests/results_file
 
-
+pomme/20241007.log
+pomme/geoc_outputs.sh
+pomme/pomme_inputs_202310_202409.txt

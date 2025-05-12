@@ -7,9 +7,10 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        os : [linux-intel, linux-arm, windows, macOS-intel, macOS-arm]
         python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
 
     steps:
