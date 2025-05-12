@@ -74,14 +74,14 @@ jobs:
         with:
           path: dist
 
-      - name: Flatten wheel files
-        run: |
-            mkdir all_wheels
-            find dist -name '*.whl' -exec cp {} all_wheels/ \;
+      #- name: Flatten wheel files
+      #  run: |
+      #      mkdir all_wheels
+      #      find dist -name '*.whl' -exec cp {} all_wheels/ \;
 
       - name: Upload release assets
         uses: softprops/action-gh-release@v1
         with:
-            files: all_wheels/*.whl
+            files: dist/*.whl
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
