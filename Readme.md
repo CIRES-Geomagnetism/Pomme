@@ -10,6 +10,11 @@ This package requires a C compiler to build the Pomme C code (e.g. gcc), and tha
 
 ## Compile and install
 
+Ensure you have the `build` installed.
+```commandline
+pip install build
+```
+Build Python Package
 ```commandline
 python -m build
 ```
