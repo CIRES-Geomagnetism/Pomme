@@ -22,6 +22,10 @@
 #include "pom.h"
 #include "Gdef.h"
 
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 
 void pomme_get_internal_coeff ( double fyear, int *deg, double  *g)
 {

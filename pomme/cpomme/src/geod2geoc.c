@@ -7,6 +7,10 @@
 #define WGS84_E2 (WGS84_E  * WGS84_E)
 #define WGS84_E4 (WGS84_E2 * WGS84_E2)
 
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 void geodetic2geocentric(double phi, double h,double *latrad, double *r) /* phi is geodetic latitude in radian*/
 
 {
