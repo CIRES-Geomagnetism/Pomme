@@ -5,7 +5,7 @@ on:
     branches: ['*']
 
 jobs:
-  test:
+  tests:
     name: Run Tests on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -34,4 +34,35 @@ jobs:
     - name: Unit tests
       run: |
         py.test
+
+  build_wheels:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: [ "3.9", "3.10", "3.11", "3.12", "3.13" ]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install cibuildwheel
+        run: pip install cibuildwheel
+
+      - name: Build wheels
+        run: |
+          cibuildwheel --output-dir wheelhouse
+        env:
+          CIBW_ARCHS_MACOS: universal2  # Optional: support both Intel and M1 macOS
+          CIBW_ARCHS_LINUX: auto aarch64
+
+      - name: Upload wheels as artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: built-wheels-${{ matrix.os }}-${{ matrix.python-version }}
+          path: wheelhouse/
 
