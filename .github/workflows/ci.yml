@@ -58,6 +58,9 @@ jobs:
           cibuildwheel --output-dir wheelhouse
         env:
           CIBW_ARCHS_MACOS: universal2  # Optional: support both Intel and M1 macOS
+          CIBW_PLATFORM: linux
+          CIBW_ARCHS_LINUX: auto
+          CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014 # Be compatible to run in RHEL 7 which has older version of glibc
 
       - name: Upload wheels as artifacts
         uses: actions/upload-artifact@v4
