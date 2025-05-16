@@ -53,14 +53,23 @@ jobs:
       - name: Install cibuildwheel
         run: pip install cibuildwheel
 
-      - name: Build wheels
+      - name: Build wheels for MacOS and Windows
+
         run: |
-          cibuildwheel --output-dir wheelhouse
+          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+            cibuildwheel --platform windows --output-dir wheelhouse
+          elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
+            cibuildwheel --platform macos --output-dir wheelhouse
+          fi
         env:
           CIBW_ARCHS_MACOS: universal2  # Optional: support both Intel and M1 macOS
-          CIBW_PLATFORM: linux
-          CIBW_ARCHS_LINUX: auto
-          CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014 # Be compatible to run in RHEL 7 which has older version of glibc
+
+      - name: Build wheels for Linux (manylinux2014)
+        run: cibuildwheel --platform linux
+        env:
+            CIBW_ARCHS_LINUX: x86_64
+            CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014 # Be compatible to run in RHEL 7 which has older version of glibc
+
 
       - name: Upload wheels as artifacts
         uses: actions/upload-artifact@v4
