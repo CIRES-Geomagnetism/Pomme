@@ -24,7 +24,11 @@
 #include <math.h>
 
 #include "utils.h"
-#include "gsm2geo.h" 
+#include "gsm2geo.h"
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 
 
 #define WD              (2.0 * M_PI)             /* diurnal frequency */

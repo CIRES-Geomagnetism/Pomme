@@ -5,11 +5,12 @@ on:
     branches: ['*']
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  tests:
+    name: Run Tests on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        python-version: [ "3.9", "3.10", "3.11", "3.12", "3.13" ]
+        os: [ "ubuntu-latest", "windows-latest" ]
 
 
     steps:
@@ -19,7 +20,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: "3.13"
 
     -  name: Install dependencies
        run: |
@@ -33,3 +34,7 @@ jobs:
     - name: Unit tests
       run: |
         py.test
+
+  
+
+

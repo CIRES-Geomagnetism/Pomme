@@ -4,8 +4,8 @@ from pomme.pypomme import get_field
 import csv  # from Python stdlib
 
 # The data files will be in the same directory as this test script
-inputs_file_path = Path(__file__).parent / "inputs_201503.txt"
-outputs_file_path = Path(__file__).parent / "pomme_hon_201503.txt"
+inputs_file_path = Path(__file__).parent / "pomme_inputs.csv"
+outputs_file_path = Path(__file__).parent / "pomme_testvalues.txt"
 
 
 def loop_test_points():
@@ -15,26 +15,23 @@ def loop_test_points():
     Inputs and outputs are returned as dictionaries
     of floats"""
     inputs_file = inputs_file_path.resolve()
-    infile_fields = ["date", "fyear", "est", "ist", "imf_by", "em", "f107"]
+    infile_fields = ["date", "lat", "lon", "alt", "est", "ist", "imf_by", "f107", "em"]
 
     outputs_file = outputs_file_path.resolve()
     outfile_fields = [
-        "fyear",
+        "date",
         "lat",
         "lon",
-        "elevation",
-        "X",
-        "Y",
-        "Z",
-        "H",
-        "F",
-        "decline",
-        "incline",
+        "alt",
+        "x",
+        "y",
+        "z",
+        "h",
+        "f",
+        "dec",
+        "inc",
     ]
 
-    hon_lat = 21.19
-    hon_lon = 158.0
-    hon_elev = 0.0
 
     # Read the inputs file
     with open(inputs_file, "r") as fin:
@@ -52,6 +49,7 @@ def loop_test_points():
 
         # Skip any NaN values
         for row in (inrow, outrow):
+
             if any(["nan" in val.lower() for key, val in row.items()]):
                 print("Skipping NaN row in:{inrow} out:{outrow}")
                 continue
@@ -59,17 +57,17 @@ def loop_test_points():
         # Check that the input and output data in this row have the same
         # timestamp
         tol = 1.0 / 365.0 / 86400.0 * 60.0  # 1 minute tolerance
-        if abs(float(inrow["fyear"]) - float(outrow["fyear"])) > tol:
+        if abs(float(inrow["date"]) - float(outrow["date"])) > tol:
             raise ValueError(f"Row {irow} fyear mismatch {inrow},{outrow}")
 
         # Convert everything to float type and organize into inputs and outputs dicts
         # w/ dict keys for inputs being argument names to get_field and the
         # dict keys matching the expected output dictionaries' keys
         inputs = {
-            "decimal_year": float(inrow["fyear"]),
-            "lat": hon_lat,
-            "lon": hon_lon,
-            "alt_km": hon_elev,
+            "decimal_year": float(inrow["date"]),
+            "lat": float(inrow["lat"]),
+            "lon": float(inrow["lon"]),
+            "alt_km": float(inrow["alt"]),
             "est": float(inrow["est"]),
             "ist": float(inrow["ist"]),
             "imf_by": float(inrow["imf_by"]),
@@ -78,12 +76,12 @@ def loop_test_points():
         }
 
         outputs = {
-            "Bx": float(outrow["X"]),
-            "By": float(outrow["Y"]),
-            "Bz": float(outrow["Z"]),
-            "Bh": float(outrow["H"]),
-            "Bdec": float(outrow["decline"]),
-            "Binc": float(outrow["incline"]),
+            "Bx": float(outrow["x"]),
+            "By": float(outrow["y"]),
+            "Bz": float(outrow["z"]),
+            "Bh": float(outrow["h"]),
+            "Bdec": float(outrow["dec"]),
+            "Binc": float(outrow["inc"]),
         }
 
         yield inputs, outputs
@@ -106,6 +104,11 @@ def test_get_field_scalar(inputs, expected_outputs):
 
 
 if __name__ == "__main__":
+
+    inputs, outputs = loop_test_points()
+
+    print("inputs: ",inputs)
+
 
     for inputs, expected_outputs in loop_test_points():
         test_outputs_list = get_field(**inputs)

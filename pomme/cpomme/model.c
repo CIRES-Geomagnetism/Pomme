@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <math.h>
-#include <getopt.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 
 #include "POMME10_core.h"
 #include "POMME10_ext.h"
