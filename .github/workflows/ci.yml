@@ -87,12 +87,17 @@ jobs:
         with:
           path: wheelhouse
 
+      - name: Flatten wheel files
+        run: |
+          mkdir all_wheels
+          find artifacts -name '*.whl' -exec cp {} all_wheels/ \;
+          
 
       - name: Upload wheels to Github Release
         uses: softprops/action-gh-release@v1
 
         with:
-          files: wheelhouse/*.whl
+          files: all_wheels/*.whl
           draft: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
