@@ -82,22 +82,17 @@ jobs:
     needs: build_wheels
 
     steps:
-      - uses: actions/download-artifact@v4
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
         with:
-          path: dist
-      - name: Flatten wheel files
-        run: |
-          mkdir all_wheels
-          Get-ChildItem -Recurse wheelhouse\*.whl | Copy-Item -Destination all_wheels
+          path: wheelhouse
 
-      - name: List files in all_wheels
-        run: Get-ChildItem all_wheels
 
-      - name: Upload release assets
+      - name: Upload wheels to Github Release
         uses: softprops/action-gh-release@v1
 
         with:
-          files: all_wheels/*.whl
+          files: wheelhouse/*.whl
           draft: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
