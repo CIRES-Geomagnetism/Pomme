@@ -56,11 +56,7 @@ jobs:
       - name: Build wheels for MacOS and Windows
 
         run: |
-          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
-            cibuildwheel --platform windows --output-dir wheelhouse
-          elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
-            cibuildwheel --platform macos --output-dir wheelhouse
-          fi
+            cibuildwheel --output-dir wheelhouse
         env:
           CIBW_ARCHS_MACOS: universal2  # Optional: support both Intel and M1 macOS
 
