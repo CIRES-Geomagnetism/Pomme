@@ -90,7 +90,7 @@ jobs:
       - name: Flatten wheel files
         run: |
           mkdir all_wheels
-          find artifacts -name '*.whl' -exec cp {} all_wheels/ \;
+          find wheelhouse -name '*.whl' -exec cp {} all_wheels/ \;
           
 
       - name: Upload wheels to Github Release
