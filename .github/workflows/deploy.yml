@@ -34,7 +34,6 @@ jobs:
             CIBW_ARCHS_MACOS=universal2  # Optional: support both Intel and M1 macOS \
             cibuildwheel --platform macos --output-dir wheelhouse
           elif [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
-
             CIBW_ARCHS_LINUX=x86_64 \
             CIBW_MANYLINUX_X86_64_IMAGE=manylinux2014 # Be compatible to run in RHEL 7 which has older version of glibc \
             cibuildwheel --platform linux --output-dir wheelhouse
@@ -45,7 +44,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: cibw-wheels-${{ matrix.os }}-${{ matrix.python-version }}
-          path: wheelhouse/
+          path: dist/*
 
   release:
     name: Create Github Release
@@ -61,7 +60,7 @@ jobs:
       - name: Flatten wheel files
         run: |
           mkdir all_wheels
-          find wheelhouse -name '*.whl' -exec cp {} all_wheels/ \;
+          find dist -name '*.whl' -exec cp {} all_wheels/ \;
 
 
       - name: Upload wheels to Github Release
