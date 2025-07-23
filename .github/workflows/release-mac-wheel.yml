@@ -29,6 +29,7 @@ jobs:
         uses: softprops/action-gh-release@v1
 
         with:
+          draft: true
           files: dist/*.whl
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
