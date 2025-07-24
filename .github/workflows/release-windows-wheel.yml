@@ -22,7 +22,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install cibuildwheel
-        run: pip install cibuildwheel
+        run: pip install cibuildwheel==3.0.1 # Upgrade to >=3.1.0 after Python 3.14 final release
 
       - name: Build wheels
         shell: bash
