@@ -3,7 +3,7 @@ name: Release windows Wheels
 on:
   push:
     tags:
-      - 'v*.*.*'  # Trigger on version tags like v1.0.0
+      - 'v*.*.*'
 
 jobs:
   build_wheels:

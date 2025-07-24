@@ -2,7 +2,9 @@ name: Build Mac Wheel for Pomme
 
 on:
   push:
-    branches: ["universal_wheel"]
+    tags:
+      - 'v*.*.*'
+
 
 jobs:
   release-mac-wheel:
@@ -29,7 +31,7 @@ jobs:
         uses: softprops/action-gh-release@v1
 
         with:
-          draft: true
+          draft: false
           files: dist/*.whl
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
