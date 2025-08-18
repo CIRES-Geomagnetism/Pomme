@@ -26,7 +26,6 @@ jobs:
       - name: Build wheels
         shell: bash
         run: |
-          CIBW_BUILD: cp39-* cp310-* cp311-* cp312-* cp313-* 
           if [ "${{ matrix.os }}" == "windows-latest" ]; then
             cibuildwheel --platform windows --output-dir wheelhouse
           elif [ "${{ matrix.os }}" == "macos-latest" ]; then
