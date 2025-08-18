@@ -11,15 +11,14 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest, macos-latest ]
-        python-version: [ "3.9", "3.10", "3.11", "3.12", "3.13" ]
-
+      
     steps:
       - uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.12"
 
       - name: Install cibuildwheel
         run: pip install cibuildwheel
@@ -27,6 +26,7 @@ jobs:
       - name: Build wheels
         shell: bash
         run: |
+          CIBW_BUILD: cp39-* cp310-* cp311-* cp312-* cp313-* 
           if [ "${{ matrix.os }}" == "windows-latest" ]; then
             cibuildwheel --platform windows --output-dir wheelhouse
           elif [ "${{ matrix.os }}" == "macos-latest" ]; then
@@ -39,12 +39,11 @@ jobs:
             cibuildwheel --platform linux --output-dir wheelhouse
           fi
 
-
       - name: Upload wheels as artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: cibw-wheels-${{ matrix.os }}-${{ matrix.python-version }}
-          path: dist/*
+          name: cibw-wheels-${{ matrix.os }}
+          path: wheelhouse
 
   release:
     name: Create Github Release
@@ -52,16 +51,18 @@ jobs:
     needs: build_wheels
 
     steps:
+
       - name: Download Artifacts
         uses: actions/download-artifact@v4
         with:
-          path: dist
-
+          pattern: cibw-wheels-*
+          merge-multiple: true
+          path: wheelhouse
+        
       - name: Flatten wheel files
         run: |
           mkdir all_wheels
-          find dist -name '*.whl' -exec cp {} all_wheels/ \;
-
+          find wheelhouse -name '*.whl' -exec cp {} all_wheels/ \;
 
       - name: Upload wheels to Github Release
         uses: softprops/action-gh-release@v1
