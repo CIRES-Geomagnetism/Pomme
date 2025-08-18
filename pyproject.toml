@@ -28,3 +28,4 @@ Homepage = "https://github.com/CIRES-Geomagnetism/Pomme.git"
 build = ["cp39-*","cp310-*","cp311-*","cp312-*","cp313-*"]
 test-requires = "pytest"
 test-sources = "tests"
+test-command = "pytest ./tests"
