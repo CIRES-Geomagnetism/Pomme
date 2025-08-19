@@ -2,7 +2,7 @@ name: Build Mac Wheel for Pomme
 
 on:
   push:
-    branches: ["universal_wheel"]
+    branches: ['mac_wheel']
 
 
 jobs:

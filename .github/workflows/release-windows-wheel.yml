@@ -2,8 +2,7 @@ name: Release windows Wheels
 
 on:
   push:
-    tags:
-      - 'v*.*.*'
+    branches: ['mac_wheel']
 
 jobs:
   build_wheels:
@@ -44,7 +43,7 @@ jobs:
         uses: softprops/action-gh-release@v1
 
         with:
-          draft: false
+          draft: true
           files: wheelhouse/*.whl
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
