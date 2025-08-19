@@ -2,7 +2,8 @@ name: Release windows Wheels
 
 on:
   push:
-    branches: ['mac_wheel']
+    tags:
+      - 'v*.*.*'
 
 jobs:
   build_wheels:

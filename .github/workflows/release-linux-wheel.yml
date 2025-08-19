@@ -2,7 +2,8 @@ name: Build Linux Wheel
 
 on:
   push:
-    branches: ['mac_wheel']
+    tags:
+      - 'v*.*.*'
 
 
 jobs:
