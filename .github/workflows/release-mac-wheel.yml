@@ -1,4 +1,4 @@
-name: Build Mac Wheel for Pomme
+name: Build universal Mac Wheel for Pomme
 
 on:
   push:
