@@ -2,7 +2,7 @@ name: Pomme ci pipeline
 
 on:
   push:
-    branches: ['mac_wheel'] # Assign the branch you want to trigger the CI on
+    branches: ['mac_wheel-'] # Assign the branch you want to trigger the CI on
 
 jobs:
   tests:
