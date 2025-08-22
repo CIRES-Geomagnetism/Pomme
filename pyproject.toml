@@ -1,6 +1,6 @@
 [project]
 name = "pomme"
-version = "0.1.5"
+version = "0.1.6"
 description = "A Python wrapper for the POMME-10 geomagnetic field model"
 authors = [ {name = "Liam Kilcommons", email = "liam.kilcommons@noaa.gov"},
     { name = "Li-Yin Young", email = "liyin.young@noaa.gov" }]
