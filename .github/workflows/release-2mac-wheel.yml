@@ -2,7 +2,8 @@ name: Build universal Mac Wheel for Pomme
 
 on:
   push:
-    branches: ["mac_wheel"]
+    tags:
+      - 'v*.*.*'  # Trigger on version tags like v1.0.0
 
 jobs:
   release-mac-wheel:
