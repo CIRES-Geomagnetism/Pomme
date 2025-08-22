@@ -1,0 +1,39 @@
+name: Release windows Wheels
+
+on:
+  push:
+    branches:
+      -  'rename_ci_file' # Assign the branch you want to trigger the CI on
+
+jobs:
+  build_wheels:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python-version: [ "3.9", "3.10", "3.11", "3.12", "3.13" ]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install cibuildwheel
+        run: pip install cibuildwheel==3.0.1 # Upgrade to >=3.1.0 after Python 3.14 final release
+
+      - name: Build wheels
+        shell: bash
+        run: |
+          cibuildwheel --platform windows --output-dir wheelhouse
+         
+
+      - name: Upload wheels to Github Release
+        uses: softprops/action-gh-release@v1
+
+        with:
+          draft: true
+          files: wheelhouse/*.whl
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
