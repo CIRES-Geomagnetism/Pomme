@@ -37,7 +37,7 @@ jobs:
         uses: softprops/action-gh-release@v1
 
         with:
-          draft: false
+          draft: true
           files: wheelhouse/*.whl
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

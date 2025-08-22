@@ -1,9 +1,9 @@
-name: Build Mac Wheel for Pomme
+name: Build universal Mac Wheel for Pomme
 
 on:
   push:
-    branches: ["universal_wheel"]
-
+    tags:
+      - 'v*.*.*'  # Trigger on version tags like v1.0.0
 
 jobs:
   release-mac-wheel:
@@ -34,5 +34,3 @@ jobs:
           files: dist/*.whl
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-
