@@ -3,8 +3,7 @@ name: Build Linux Wheel
 on:
   push:
     tags:
-      - 'v*.*.*'
-
+        - 'v*.*.*'  # Trigger on version tags like v1.0.0
 
 jobs:
   release-wheel:

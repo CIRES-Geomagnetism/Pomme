@@ -1,0 +1,37 @@
+name: Release windows Wheels
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'  # Trigger on version tags like v1.0.0
+
+jobs:
+  build_wheels:
+    runs-on: windows-latest
+
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install cibuildwheel
+        run: pip install cibuildwheel==3.0.1 # Upgrade to >=3.1.0 after Python 3.14 final release
+
+      - name: Build wheels
+        shell: bash
+        run: |
+          cibuildwheel --platform windows --output-dir wheelhouse
+         
+
+      - name: Upload wheels to Github Release
+        uses: softprops/action-gh-release@v1
+
+        with:
+          draft: false
+          files: wheelhouse/*.whl
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
