@@ -2,8 +2,8 @@ name: Build Linux Wheel
 
 on:
   push:
-    branches:
-        - 'rename_ci_file' # Assign the branch you want to trigger the CI on
+    tags:
+        - 'v*.*.*'  # Trigger on version tags like v1.0.0
 
 jobs:
   release-wheel:
@@ -36,7 +36,7 @@ jobs:
         uses: softprops/action-gh-release@v1
 
         with:
-          draft: true
+          draft: false
           files: wheelhouse/*.whl
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
