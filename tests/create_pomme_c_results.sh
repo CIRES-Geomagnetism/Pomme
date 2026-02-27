@@ -24,7 +24,7 @@ echo "date,lat,lon,alt,x,y,z,h,f,dec,inc" > $results_file
 
      while IFS=, read -r fYear ALT LAT LON decline incline H X Y Z F
      do
-       echo "${fYear},${LAT},${LON},${ALT},$X,$Y,$Z,$H,$F,${decline},${incline}" >> $results_file
+       echo "${fYear},${lat},${lon},${alt},$X,$Y,$Z,$H,$F,${decline},${incline}" >> $results_file
      done < pomm_tmp.txt
 
 
