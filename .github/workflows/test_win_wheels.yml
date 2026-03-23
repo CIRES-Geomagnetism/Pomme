@@ -1,0 +1,33 @@
+name: Build Windows Wheel
+
+on:
+  push:
+    branches: ["python314"] # Assign the branch that triggers this workflow
+
+jobs:
+  build-windows-wheel:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python-version: ["3.14"]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install cibuildwheel
+        run: pip install cibuildwheel==3.4.0 # Upgrade to >=3.1.0 after Python 3.14 final release
+
+      - name: Build wheels
+        shell: bash
+        run: |
+          cibuildwheel --platform windows --output-dir wheelhouse
+        env:
+          CIBW_BUILD: "cp311-* cp312-* cp313-* cp314-*"
+          CIBW_TEST_REQUIRES: "numpy"
+          CIBW_TEST_COMMAND: "python -c \"import pomme.pypommme\" && python {project}/tests/smoke_test_pypomme.py"
+          CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: "delvewheel repair --add-path C:\\\\msys64\\\\mingw64\\\\bin -w {dest_dir} {wheel}"
