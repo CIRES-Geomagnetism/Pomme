@@ -9,7 +9,7 @@ The latest version of Pomme is POMME-10. Please see the [POMME-10](https://geoma
 
 ### Install from wheel
 
-Please select the wheel based on your python version and platform from the [GitHub Releases](https://github.com/CIRES-Geomagnetism/Pomme/releases). It only supports x86_64 architecture for linux and Windows OS.
+Please select the wheel based on your python version and platform from the [GitHub Releases](https://github.com/CIRES-Geomagnetism/Pomme/releases). It supports Mac OS and x86_64 architecture for linux and Windows OS.
 
 #### For Windows users
 
@@ -25,10 +25,7 @@ Select the wheels which have the `manylinux` tag in the name. It is compatible w
 
 #### For macOS users
 
-- For Python < 3.11, 
-  - If you are on x86_64 architecture, select the wheels which have the `macosx_13_0_x86_64` tag in the name.
-  - If you are on Apple Silicon (arm64) architecture, select the wheels which have the `macosx_10_9_universal2` tag in the name.
-- For Python >= 3.11, select the wheels which have the `macosx` tag in the name.
+Select the wheels which have the `macosx` tag in the name.
 
 
 ### Build from source

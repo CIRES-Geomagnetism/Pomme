@@ -25,7 +25,11 @@ jobs:
         shell: bash
         run: |
           cibuildwheel --platform windows --output-dir wheelhouse
-         
+        env:
+          CIBW_BUILD: "cp311-* cp312-* cp313-* cp314-*"
+          CIBW_TEST_REQUIRES: "numpy"
+          CIBW_TEST_COMMAND: "python -c \"import pomme.pypomme\" && python {project}/tests/smoke_test_pypomme.py"
+          CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: "delvewheel repair --add-path C:\\\\msys64\\\\mingw64\\\\bin -w {dest_dir} {wheel}"
 
       - name: Upload wheels to Github Release
         uses: softprops/action-gh-release@v1

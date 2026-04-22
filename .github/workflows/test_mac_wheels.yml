@@ -6,10 +6,10 @@ on:
       - 'main_field_pom' # Assign the branch you want to trigger the CI on
 jobs:
   release-mac-wheel:
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-26
     strategy:
       matrix:
-        os: ["macos-26"]
+        python-version: [ "3.11", "3.12", "3.13", "3.14" ]
 
     steps:
       - uses: actions/checkout@v3
@@ -17,7 +17,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.14"
+          python-version: ${{ matrix.python-version }}
 
       - name: Build and install dependencies
         run: |

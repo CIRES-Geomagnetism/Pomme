@@ -20,7 +20,7 @@ jobs:
           python-version: "3.14"
 
       - name: Install dependencies and cibuildwheel
-        run: pip install cibuildwheel==3.4.0  delvewheel # Upgrade to >=3.1.0 after Python 3.14 final release
+        run: pip install cibuildwheel==3.4.0  delvewheel
 
       - name: Build wheels
         shell: bash
