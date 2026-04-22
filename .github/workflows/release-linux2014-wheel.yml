@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
-          python-version: "3.13"
+          python-version: "3.14"
 
 
       - name: Install dependencies and cibuildwheel
@@ -30,6 +30,7 @@ jobs:
           CIBW_ARCHS: "x86_64"
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
           CIBW_SKIP: "*-musllinux*"
+
 
 
       - name: Upload wheels to Github Release
