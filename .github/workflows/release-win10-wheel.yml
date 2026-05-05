@@ -6,7 +6,7 @@ on:
       - 'v*.*.*'  # Trigger on version tags like v1.0.0
 
 jobs:
-  build_wheels:
+  release_windows_wheels:
     runs-on: windows-latest
 
 
