@@ -1,0 +1,38 @@
+name: Build universal Mac Wheel for Pomme
+
+on:
+  push:
+    branches:
+      - 'main_field_pom' # Assign the branch you want to trigger the CI on
+jobs:
+  release-mac-wheel:
+    runs-on: macos-26
+    strategy:
+      matrix:
+        python-version: [ "3.11", "3.12", "3.13", "3.14" ]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Build and install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python -m build --wheel 
+
+      - name: Test the wheel
+        run: |
+            pip install dist/*.whl
+            python -c "import pomme; print(pomme.__version__)"
+            python tests/smoke_test_pypomme.py
+
+      - name: Upload cleaned wheels
+        uses: actions/upload-artifact@v4
+        with:
+            name: mac-wheels
+            path: dist/*.whl
