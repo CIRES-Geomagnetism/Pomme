@@ -29,8 +29,7 @@ jobs:
           # Skip to build musllinux and 32-bit manylinux wheels
           CIBW_SKIP: "*-musllinux* *-manylinux_i686"
           # Multi-threaded for C compiler
-          MAKEFLAGS: "-j$(nproc)" 
-          CIBW_TEST_REQUIRES: "numpy"
+          MAKEFLAGS: "-j$(nproc)"
           CIBW_TEST_COMMAND: "python -c \"import pomme.pypomme\" && python {project}/tests/smoke_test_pypomme.py"
 
       - name: Upload wheels to Github Release
