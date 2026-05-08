@@ -38,7 +38,7 @@ jobs:
           CIBW_TEST_REQUIRES: "numpy"
           CIBW_TEST_COMMAND: "python -c \"import pomme.pypomme\" && python {project}/tests/smoke_test_pypomme.py"
 
-     - name: Upload built wheels
+      - name: Upload built wheels
         uses: actions/upload-artifact@v3
         with:
           name: built-wheels
