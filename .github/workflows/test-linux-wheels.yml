@@ -1,4 +1,4 @@
-name: Test the linux 2_28 wheels based on python 3.14 on Github actions
+name: Test the linux 2_28 wheels
 
 on:
   push:
@@ -35,7 +35,7 @@ jobs:
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
-          name: linux-wheels-${{ matrix.python-version }}
+          name: wheels-${{ matrix.python-version }}
           path: wheelhouse/*.whl
 
   release-wheel:
@@ -45,7 +45,7 @@ jobs:
       - name: Download built wheels
         uses: actions/download-artifact@v4
         with:
-          pattern: linux-wheels-*
+          pattern: wheels-*
           path: dist
           merge-multiple: true
 
