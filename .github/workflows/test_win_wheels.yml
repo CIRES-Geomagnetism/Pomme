@@ -26,13 +26,11 @@ jobs:
         uses: astral-sh/setup-uv@v5
         with:
           version: "latest"
-      - name: Install dependencies and cibuildwheel
-        run: uv pip install delvewheel
+      - name: Install dependencies
+        run: pip install delvewheel
 
       - name: Build wheels
-        shell: bash
-        run: |
-          cibuildwheel --platform windows --output-dir wheelhouse
+        uses: pypa/cibuildwheel@v3.4.0
         env:
           CIBW_BUILD: ${{ matrix.python-version }}
           CIBW_BUILD_FRONTEND: "build[uv]"
