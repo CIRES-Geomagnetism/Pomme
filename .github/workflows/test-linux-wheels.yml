@@ -9,9 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ "cp311-*", "cp312-*", "cp313-*", "cp314-*" ]
-    env:
-        CIBW_BUILD: ${{ matrix.python-version }}
+        python-version: [ "cp311", "cp312", "cp313", "cp314" ]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,6 +25,7 @@ jobs:
           CIBW_ARCHS: "x86_64"
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_28
           CIBW_BUILD_FRONTEND: "build[uv]"
+          CIBW_BUILD: "${{ matrix.python-version }}-*"
           # Skip to build musllinux and 32-bit manylinux wheels
           CIBW_SKIP: "*-musllinux* *-manylinux_i686"
           # Multi-threaded for C compiler
