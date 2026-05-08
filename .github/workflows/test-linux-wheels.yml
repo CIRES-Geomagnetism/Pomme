@@ -32,12 +32,29 @@ jobs:
           MAKEFLAGS: "-j$(nproc)"
           CIBW_TEST_COMMAND: "python -c \"import pomme.pypomme\" && python {project}/tests/smoke_test_pypomme.py"
 
+      - name: Upload wheels
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-wheels-${{ matrix.python-version }}
+          path: wheelhouse/*.whl
+
+  release-wheel:
+    needs: build-wheel
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download built wheels
+        uses: actions/download-artifact@v4
+        with:
+          pattern: linux-wheels-*
+          path: dist
+          merge-multiple: true
+
       - name: Upload wheels to Github Release
         uses: softprops/action-gh-release@v1
 
         with:
           draft: true
-          files: wheelhouse/*.whl
+          files: dist/*.whl
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

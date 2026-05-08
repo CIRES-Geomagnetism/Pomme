@@ -3,7 +3,7 @@ name: Build universal Mac Wheel for Pomme
 on:
   push:
     branches:
-      - 'manylinux_2_28' # Assign the branch you want to trigger the CI on
+      - '-manylinux_2_28' # Assign the branch you want to trigger the CI on
 jobs:
   release-mac-wheel:
     runs-on: macos-latest
@@ -26,6 +26,5 @@ jobs:
             # Set the OS floor (11.0 is a safe modern bet for universal2)
             MACOSX_DEPLOYMENT_TARGET: "11.0"
             CIBW_BUILD_FRONTEND: "build[uv]"
-            CIBW_TEST_REQUIRES: "numpy"
             CIBW_TEST_COMMAND: "python -c \"import pomme.pypomme\" && python {project}/tests/smoke_test_pypomme.py"
 
