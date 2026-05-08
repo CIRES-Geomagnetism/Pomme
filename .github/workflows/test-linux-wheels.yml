@@ -37,6 +37,22 @@ jobs:
       - name: Upload built wheels
         uses: actions/upload-artifact@v4
         with:
-          name: built-wheels
+          name: built-wheels-${{ matrix.python-version }}
           path: wheelhouse/*.whl
+
+  aggregate-wheels:
+    needs: build-wheel
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all wheels artifacts from matrix jobs
+        uses: actions/download-artifact@v4
+        with:
+          pattern: built-wheels-*
+          merge-mutiple: true
+          path: all-wheels
+
+      - name: List all downloaded wheels
+        run: ls -l all-wheels
+
+
 
