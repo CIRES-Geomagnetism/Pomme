@@ -2,7 +2,7 @@ name: Test the linux 2_28 wheels
 
 on:
   push:
-    branches: ["-manylinux_2_28"]
+    branches: ["manylinux_2_28"]
 
 jobs:
   build-wheel:

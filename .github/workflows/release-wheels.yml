@@ -2,7 +2,9 @@ name: Test releasing three platform wheels in one workflow
 
 on:
   push:
-    branches: ["manylinux_2_28"] # Assign the branch that triggers this workflow
+    tags:
+      - 'v*.*.*'  # Trigger on version tags like v1.0.0
+
 
 jobs:
   build-linux-wheels:
@@ -28,6 +30,7 @@ jobs:
           CIBW_BUILD: "${{ matrix.python-version }}-*"
           # Skip to build musllinux and 32-bit manylinux wheels
           CIBW_SKIP: "*-musllinux* *-manylinux_i686"
+          CIBW_TEST_COMMAND: "python -c \"import pomme.pypomme\" && python {project}/tests/smoke_test_pypomme.py"
           # Multi-threaded for C compiler
           MAKEFLAGS: "-j$(nproc)"
 
@@ -56,6 +59,7 @@ jobs:
           CIBW_ARCHS_MACOS: "x86_64 arm64"
           # Set the OS floor (11.0 is a safe modern bet for universal2)
           MACOSX_DEPLOYMENT_TARGET: "11.0"
+          CIBW_TEST_COMMAND: "python -c \"import pomme.pypomme\" && python {project}/tests/smoke_test_pypomme.py"
           CIBW_BUILD_FRONTEND: "build[uv]"
 
 
@@ -75,12 +79,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Force to build in D to avoid I/O bottleneck on C drive
-      - name: Set TEMP to D:/Temp
-        run: |
-          mkdir "D:\Temp"
-          echo "TEMP=D:\Temp" >> $env:GITHUB_ENV
-          echo "TMP=D:\Temp" >> $env:GITHUB_ENV
       # Add this step to install uv
       - name: Setup uv
         uses: astral-sh/setup-uv@v5
@@ -96,7 +94,8 @@ jobs:
           CIBW_BUILD_FRONTEND: "build[uv]"
           # Only output 64-bit wheels for Windows
           CIBW_ARCHS_WINDOWS: "AMD64"
-          CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: "delvewheel repair --add-path D:\\msys64\\mingw64\\bin -w {dest_dir} {wheel}"
+          CIBW_TEST_COMMAND: "python -c \"import pomme.pypomme\" && python {project}/tests/smoke_test_pypomme.py"
+          CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: "delvewheel repair --add-path C:\\msys64\\mingw64\\bin -w {dest_dir} {wheel}"
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
@@ -121,7 +120,7 @@ jobs:
         uses: softprops/action-gh-release@v1
 
         with:
-          draft: true
+          draft: false
           files: dist/*.whl
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

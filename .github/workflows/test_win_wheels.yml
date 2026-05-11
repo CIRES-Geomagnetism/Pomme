@@ -2,7 +2,7 @@ name: Build Windows Wheel
 
 on:
   push:
-    branches: ["-manylinux_2_28"] # Assign the branch that triggers this workflow
+    branches: ["manylinux_2_28"] # Assign the branch that triggers this workflow
 
 jobs:
   build-wheel:
