@@ -3,7 +3,7 @@ name: Test Mac x86_64 and Arm64 Wheels
 on:
   push:
     branches:
-      - 'manylinux_2_28' # Assign the branch you want to trigger the CI on
+      - '-manylinux_2_28' # Assign the branch you want to trigger the CI on
 jobs:
   build-wheel:
     runs-on: macos-latest

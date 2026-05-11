@@ -1,4 +1,4 @@
-Name: Test releasing three platform wheels in one workflow
+name: Test releasing three platform wheels in one workflow
 
 on:
   push:
