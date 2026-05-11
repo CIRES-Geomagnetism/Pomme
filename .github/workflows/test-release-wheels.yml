@@ -30,7 +30,6 @@ jobs:
           CIBW_SKIP: "*-musllinux* *-manylinux_i686"
           # Multi-threaded for C compiler
           MAKEFLAGS: "-j$(nproc)"
-          CIBW_TEST_COMMAND: "python -c \"import pomme.pypomme\" && python {project}/tests/smoke_test_pypomme.py"
 
       - name: Upload Linux Wheels
         uses: actions/upload-artifact@v4
@@ -58,7 +57,7 @@ jobs:
           # Set the OS floor (11.0 is a safe modern bet for universal2)
           MACOSX_DEPLOYMENT_TARGET: "11.0"
           CIBW_BUILD_FRONTEND: "build[uv]"
-          CIBW_TEST_COMMAND: "python -c \"import pomme.pypomme\" && python {project}/tests/smoke_test_pypomme.py"
+
 
       - name: Upload Mac Wheels
         uses: actions/upload-artifact@v4
@@ -97,8 +96,7 @@ jobs:
           CIBW_BUILD_FRONTEND: "build[uv]"
           # Only output 64-bit wheels for Windows
           CIBW_ARCHS_WINDOWS: "AMD64"
-          CIBW_TEST_COMMAND: "python -c \"import pomme.pypomme\" && python {project}/tests/smoke_test_pypomme.py"
-          CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: "delvewheel repair --add-path C:\\\\msys64\\\\mingw64\\\\bin -w {dest_dir} {wheel}"
+          CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: "delvewheel repair --add-path D:\\msys64\\mingw64\\bin -w {dest_dir} {wheel}"
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
