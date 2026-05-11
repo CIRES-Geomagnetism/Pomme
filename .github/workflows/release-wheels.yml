@@ -1,4 +1,4 @@
-name: Test releasing three platform wheels in one workflow
+name: Released three platform wheels when github tag is pushed
 
 on:
   push:
