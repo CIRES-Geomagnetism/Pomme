@@ -1,0 +1,126 @@
+name: Released three platform wheels when github tag is pushed
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'  # Trigger on version tags like v1.0.0
+
+
+jobs:
+  build-linux-wheels:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["cp311", "cp312", "cp313", "cp314"]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v8.1.0
+        with:
+          version: latest
+      - name: Build wheels with cibuildwheel
+        uses: pypa/cibuildwheel@v3.4.0
+        env:
+          CIBW_ARCHS: "x86_64"
+          CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_28
+          CIBW_BUILD_FRONTEND: "build[uv]"
+          CIBW_BUILD: "${{ matrix.python-version }}-*"
+          # Skip to build musllinux and 32-bit manylinux wheels
+          CIBW_SKIP: "*-musllinux* *-manylinux_i686"
+          CIBW_TEST_COMMAND: "python -c \"import pomme.pypomme\" && python {project}/tests/smoke_test_pypomme.py"
+          # Multi-threaded for C compiler
+          MAKEFLAGS: "-j$(nproc)"
+
+      - name: Upload Linux Wheels
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheels-linux-${{ matrix.python-version }}
+          path: wheelhouse/*.whl
+  build-mac-wheels:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        python-version: [ "cp311", "cp312", "cp313", "cp314" ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v8.1.0
+        with:
+          version: latest
+      - name: Build Mac wheels
+        uses: pypa/cibuildwheel@v3.4.0
+        env:
+          CIBW_BUILD: "${{ matrix.python-version }}-*"
+          CIBW_ARCHS_MACOS: "x86_64 arm64"
+          # Set the OS floor (11.0 is a safe modern bet for universal2)
+          MACOSX_DEPLOYMENT_TARGET: "11.0"
+          CIBW_TEST_COMMAND: "python -c \"import pomme.pypomme\" && python {project}/tests/smoke_test_pypomme.py"
+          CIBW_BUILD_FRONTEND: "build[uv]"
+
+
+      - name: Upload Mac Wheels
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheels-mac-${{ matrix.python-version }}
+          path: wheelhouse/*.whl
+
+  build-windows-wheels:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python-version: [ "cp311","cp312","cp313","cp314" ]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Add this step to install uv
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: "latest"
+      - name: Install dependencies
+        run: pip install delvewheel
+
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v3.4.0
+        env:
+          CIBW_BUILD: "${{ matrix.python-version }}-*"
+          CIBW_BUILD_FRONTEND: "build[uv]"
+          # Only output 64-bit wheels for Windows
+          CIBW_ARCHS_WINDOWS: "AMD64"
+          CIBW_TEST_COMMAND: "python -c \"import pomme.pypomme\" && python {project}/tests/smoke_test_pypomme.py"
+          CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: "delvewheel repair --add-path C:\\msys64\\mingw64\\bin -w {dest_dir} {wheel}"
+      - name: Upload wheels
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheels-${{ matrix.python-version }}
+          path: wheelhouse/*.whl
+
+  publish-release:
+    needs: [build-linux-wheels, build-mac-wheels, build-windows-wheels]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download built wheels
+        uses: actions/download-artifact@v4
+        with:
+          pattern: wheels-*
+          path: dist
+          merge-multiple: true
+
+      - name: List Wheels
+        run: ls -R dist
+
+      - name: Upload wheels to Github Release
+        uses: softprops/action-gh-release@v1
+
+        with:
+          draft: false
+          files: dist/*.whl
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

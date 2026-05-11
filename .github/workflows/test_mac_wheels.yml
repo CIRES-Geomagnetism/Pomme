@@ -1,0 +1,55 @@
+name: Test Mac x86_64 and Arm64 Wheels
+
+on:
+  push:
+    branches:
+      - 'manylinux_2_28' # Assign the branch you want to trigger the CI on
+jobs:
+  build-wheel:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        python-version: [ "cp311", "cp312", "cp313", "cp314" ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v8.1.0
+        with:
+          version: latest
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v3.4.0
+        env:
+            CIBW_BUILD: "${{ matrix.python-version }}-*"
+            CIBW_ARCHS_MACOS: "x86_64 arm64"
+            # Set the OS floor (11.0 is a safe modern bet for universal2)
+            MACOSX_DEPLOYMENT_TARGET: "11.0"
+            CIBW_BUILD_FRONTEND: "build[uv]"
+            CIBW_TEST_COMMAND: "python -c \"import pomme.pypomme\" && python {project}/tests/smoke_test_pypomme.py"
+
+      - name: Upload wheels
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheels-${{ matrix.python-version }}
+          path: wheelhouse/*.whl
+
+  release-wheel:
+    needs: build-wheel
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download built wheels
+        uses: actions/download-artifact@v4
+        with:
+          pattern: wheels-*
+          path: dist
+          merge-multiple: true
+
+      - name: Upload wheels to Github Release
+        uses: softprops/action-gh-release@v1
+
+        with:
+          draft: true
+          files: dist/*.whl
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
