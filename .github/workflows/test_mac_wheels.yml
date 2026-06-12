@@ -3,7 +3,7 @@ name: Test Mac x86_64 and Arm64 Wheels
 on:
   push:
     branches:
-      - 'manylinux_2_28' # Assign the branch you want to trigger the CI on
+      - 'remove_uv' # Assign the branch you want to trigger the CI on
 jobs:
   build-wheel:
     runs-on: macos-latest
@@ -14,10 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up uv
-        uses: astral-sh/setup-uv@v8.1.0
-        with:
-          version: latest
       - name: Build wheels
         uses: pypa/cibuildwheel@v3.4.0
         env:
@@ -25,7 +21,6 @@ jobs:
             CIBW_ARCHS_MACOS: "x86_64 arm64"
             # Set the OS floor (11.0 is a safe modern bet for universal2)
             MACOSX_DEPLOYMENT_TARGET: "11.0"
-            CIBW_BUILD_FRONTEND: "build[uv]"
             CIBW_TEST_COMMAND: "python -c \"import pomme.pypomme\" && python {project}/tests/smoke_test_pypomme.py"
 
       - name: Upload wheels
