@@ -3,7 +3,7 @@ name: Test Mac x86_64 and Arm64 Wheels
 on:
   push:
     branches:
-      - 'remove_uv' # Assign the branch you want to trigger the CI on
+      - '-remove_uv' # Assign the branch you want to trigger the CI on
 jobs:
   build-wheel:
     runs-on: macos-latest
@@ -28,6 +28,7 @@ jobs:
         with:
           name: wheels-${{ matrix.python-version }}
           path: wheelhouse/*.whl
+          retention-days: 1
 
   release-wheel:
     needs: build-wheel
