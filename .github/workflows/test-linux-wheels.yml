@@ -2,7 +2,7 @@ name: Test the linux 2_28 wheels
 
 on:
   push:
-    branches: ["remove_uv"]
+    branches: ["-remove_uv"]
 
 jobs:
   build-wheel:
