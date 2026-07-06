@@ -94,7 +94,7 @@ jobs:
           retention-days: 1
 
   dry-run-release:
-    needs: test-wheels
+    needs: [ build-windows-wheels, build-liunx-wheels, build-mac-wheels ]
     runs-on: ubuntu-latest
     steps:
 
