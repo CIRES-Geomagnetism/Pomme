@@ -33,6 +33,7 @@ jobs:
 
     - name: Unit tests
       run: |
-        py.test
+        python -m unittest tests/test_pypomme.py
+        python tests/test_pypomme_scientific.py
 
   

@@ -17,6 +17,7 @@ tests/.DS_Store
 tests/__pycache__/
 tests/results
 tests/results_file
+tests/test_pomme_calc.sh
 
 pomme/20241007.log
 pomme/geoc_outputs.sh
