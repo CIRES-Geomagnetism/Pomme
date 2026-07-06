@@ -2,7 +2,7 @@ name: Build Windows Wheel
 
 on:
   push:
-    branches: ["-remove_uv"] # Assign the branch that triggers this workflow
+    branches: ["remove_uv"] # Assign the branch that triggers this workflow
 
 jobs:
   build-wheel:

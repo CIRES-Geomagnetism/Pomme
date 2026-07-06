@@ -7,6 +7,7 @@ on:
 
 jobs:
   build-liunx-wheels:
+    if: github.event.pull_request.draft == false  # ❗ Skip if draft == true
     runs-on: ubuntu-latest
     strategy:
       matrix:
