@@ -38,6 +38,8 @@ jobs:
     needs: build-wheel
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Download built wheels
         uses: actions/download-artifact@v4
         with:
