@@ -32,7 +32,7 @@ Select the wheels which have the `macosx` tag in the name.
 
 #### Prerequisites
 
-- Python 3.11+
+- Python 3.11 to 3.14
 - Python build, setuptools and wheel packages
 - C compiler (e.g. gcc)
 
