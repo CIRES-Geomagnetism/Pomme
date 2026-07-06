@@ -6,7 +6,7 @@ on:
       - 'remove_uv' # Assign the branch you want to trigger the CI on
 jobs:
   build-wheel:
-    runs-on: macos-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         python-version: [ "cp313"]

@@ -57,6 +57,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install dist/*.whl
       - name: Test wheels
+        shell: bash
         run: |
           python -c "import pomme.pypomme"
           python tests/smoke_test_pypomme.py
