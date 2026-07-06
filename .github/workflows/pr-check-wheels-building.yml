@@ -1,13 +1,13 @@
-name: Released three platform wheels when github tag is pushed
+name: Test wheels building in cross-platform
 
 on:
-  push:
-    tags:
-      - 'v*.*.*'  # Trigger on version tags like v1.0.0
-
+    pull_request:
+        branches:
+        - main
 
 jobs:
   build-liunx-wheels:
+    if: github.event.pull_request.draft == false  # ❗ Skip if draft == true
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -93,27 +93,40 @@ jobs:
           path: wheelhouse/*.whl
           retention-days: 1
 
-  dry-run-release:
+  test-wheels:
     needs: [ build-windows-wheels, build-liunx-wheels, build-mac-wheels ]
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+        matrix:
+            os: [ "windows-latest", "ubuntu-latest", "macos-latest", "macos-26-intel" ]
+
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Download built wheels
-      uses: actions/download-artifact@v4
-      with:
-        pattern: wheels-*
-        path: dist
-        merge-multiple: true
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
 
-    - name: List Wheels
-      run: ls -R dist
+      - name: Download built wheels
+        uses: actions/download-artifact@v4
+        with:
+          pattern: wheels-${{ matrix.os }}-cp313
+          path: dist
+          merge-multiple: true
 
-    - name: Upload wheels to Github Release
-      uses: softprops/action-gh-release@v1
+      - name: Install wheels
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip
+          pip install dist/*.whl
 
-      with:
-        draft: false
-        files: dist/*.whl
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Test wheels
+        shell: bash
+        run: |
+          python -c "import pomme.pypomme"
+          python tests/smoke_test_pypomme.py
+
+  
 

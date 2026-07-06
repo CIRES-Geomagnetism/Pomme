@@ -1,6 +1,6 @@
 [project]
 name = "pomme"
-version = "0.1.10"
+version = "0.1.11"
 description = "A Python wrapper for the POMME-10 geomagnetic field model"
 authors = [ {name = "Liam Kilcommons", email = "liam.kilcommons@noaa.gov"},
     { name = "Li-Yin Young", email = "liyin.young@noaa.gov" }]
@@ -13,7 +13,9 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
     "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS :: MacOS X",
 ]
 
 [build-system]

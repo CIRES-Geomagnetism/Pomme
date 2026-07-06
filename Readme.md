@@ -17,11 +17,11 @@ Select the wheels which have the `win_amd64` tag in the name. It is compatible w
 
 Then, install the wheel by
 ```commandline
-pip install pomme-0.1.4-cp310-cp310-win_amd64.whl
+pip install pomme-0.1.11-cp313-cp313-win_amd64.whl
 ```
 #### For Linux users
 
-Select the wheels which have the `manylinux` tag in the name. It is compatible with older version of Linux distributions such as `Ubuntu 18.04`, `CentOS 7` and `REHL 7`.
+Select the wheels which have the `manylinux` tag in the name. It is compatible with older version of Linux distributions which `glibc >= 2.28` such as `Ubuntu 20.04`, `CentOS 8` and `RHEL 8`.
 
 #### For macOS users
 
@@ -32,6 +32,7 @@ Select the wheels which have the `macosx` tag in the name.
 
 #### Prerequisites
 
+- Python 3.11 to 3.14
 - Python build, setuptools and wheel packages
 - C compiler (e.g. gcc)
 
